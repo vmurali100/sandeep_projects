@@ -16,7 +16,6 @@ export const useForm = (callback, initialState, validation) => {
     //The following Line will get Object Return if any Errors Exist
     const valudatedObj = validation(values);
     if (Object.keys(valudatedObj).length === 0) {
-      console.log(values);
       setErrros(valudatedObj);
     } else {
       setErrros(valudatedObj);

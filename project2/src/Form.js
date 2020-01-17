@@ -1,7 +1,13 @@
 import React from "react";
 import { useForm } from "./Hook";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
-export default function Form() {
+import { useHistory } from "react-router-dom";
+
+function Form() {
+  let history = useHistory();
+
   const validateForms = values => {
     let errors = {};
     let emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -24,6 +30,7 @@ export default function Form() {
   const addUser = () => {
     console.log("addUser called");
   };
+
   const { errors, values, onFormChange, onFormSubmit } = useForm(
     addUser,
     {
@@ -33,12 +40,19 @@ export default function Form() {
     },
     validateForms
   );
+  const handleSubmit = e => {
+    onFormSubmit(e);
+    axios.post("http://localhost:3000/users", values).then(res => {
+      console.log(res);
+      history.push("/user");
+    });
+  };
 
   return (
     <div className="container">
       <form>
         <div className="form-group">
-          <label htmlFor="firstName">Email address</label>
+          <label htmlFor="firstName">First Name</label>
           <input
             type="email"
             className={`form-control ${errors.firstName && "is-invalid"}`}
@@ -48,6 +62,9 @@ export default function Form() {
               onFormChange(e);
             }}
           />
+          {errors.firstName && (
+            <span style={{ color: "red" }}>{errors.firstName}</span>
+          )}
         </div>
         <div className="form-group">
           <label htmlFor="lastName">Last Name</label>
@@ -79,8 +96,9 @@ export default function Form() {
           type="button"
           className="btn btn-primary"
           onClick={e => {
-            onFormSubmit(e);
+            handleSubmit(e);
           }}
+          disabled={Object.values(values).length === 0}
         >
           Submit
         </button>
@@ -88,3 +106,5 @@ export default function Form() {
     </div>
   );
 }
+
+export default Form;
