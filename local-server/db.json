@@ -1,3 +1,22 @@
 {
-  "users": []
+  "users": [
+    {
+      "firstName": "Murali",
+      "lastName": "veesambattu",
+      "email": "vmurali100@gmail.com",
+      "id": 1
+    },
+    {
+      "firstName": "murali",
+      "lastName": "murali",
+      "email": "vmurali100@gmail.com",
+      "id": 2
+    },
+    {
+      "firstName": "veesambattu Krishna",
+      "lastName": "murali",
+      "email": "vmurali100@gmail.com",
+      "id": 3
+    }
+  ]
 }
